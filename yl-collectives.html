@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YL Collectives</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Playfair+Display:ital@1&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f3ee;
+      --cream: #ede8df;
+      --accent: #e84f2a;
+      --gold: #c8a96e;
+      --muted: #888;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ── ANNOUNCEMENT BAR ── */
+    .announcement {
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .announcement span {
+      display: inline-block;
+      animation: marquee 18s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(40vw);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: var(--white);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 4px;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .nav-icons a {
+      text-decoration: none;
+      color: var(--black);
+      font-weight: 500;
+      transition: color .2s;
+    }
+
+    .nav-icons a:hover {
+      color: var(--accent);
+    }
+
+    .cart-btn {
+      background: var(--black);
+      color: var(--white) !important;
+      padding: 8px 18px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-weight: 500;
+      transition: background .2s;
+    }
+
+    .cart-btn:hover {
+      background: var(--accent) !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 94vh;
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      background: var(--black);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 40%, #1c1208 100%);
+    }
+
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      opacity: .04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* Abstract fashion shape as hero image substitute */
+    .hero-shape {
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38%;
+      max-width: 480px;
+      aspect-ratio: 2/3;
+      background: linear-gradient(160deg, #2a1f14 0%, #4a3020 40%, #1a120a 100%);
+      clip-path: polygon(10% 0%, 90% 0%, 100% 8%, 100% 92%, 90% 100%, 10% 100%, 0% 92%, 0% 8%);
+      overflow: hidden;
+      opacity: .9;
+    }
+
+    .hero-shape img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-shape::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg,
+          transparent,
+          transparent 60px,
+          rgba(200, 169, 110, .04) 60px,
+          rgba(200, 169, 110, .04) 62px);
+    }
+
+    .hero-shape-label {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-display);
+      font-size: 80px;
+      color: rgba(200, 169, 110, .12);
+      white-space: nowrap;
+      letter-spacing: 6px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 60px 80px;
+      max-width: 620px;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(72px, 10vw, 130px);
+      color: var(--white);
+      line-height: .92;
+      margin-bottom: 28px;
+      animation: fadeUp .8s ease both;
+    }
+
+    .hero-title .accent {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(245, 243, 238, .6);
+      max-width: 380px;
+      margin-bottom: 40px;
+      animation: fadeUp .8s .15s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      animation: fadeUp .8s .25s ease both;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      padding: 14px 36px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background .2s, transform .2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: #c93e1e;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border: 1px solid rgba(245, 243, 238, .3);
+      color: var(--white);
+      padding: 14px 36px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: border-color .2s, background .2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--white);
+      background: rgba(255, 255, 255, .06);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      padding: 0 40px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: 2px;
+    }
+
+    .section-link {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+      font-weight: 500;
+      transition: color .2s, border-color .2s;
+    }
+
+    .section-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ── NEW ARRIVALS ── */
+    .new-arrivals {
+      padding: 80px 0;
+    }
+
+    .products-scroll {
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 0 40px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .products-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product-card {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+      cursor: pointer;
+    }
+
+    .product-img {
+      aspect-ratio: 3/4;
+      background: var(--cream);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+
+    .product-card:hover .product-img img {
+      transform: scale(1.04);
+    }
+
+    .product-img-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: rgba(0, 0, 0, .06);
+      letter-spacing: 4px;
+      transition: transform .5s ease;
+      position: relative;
+      display: none;
+    }
+
+    /* Product colour variants */
+    .p1 {
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
+    }
+
+    .p2 {
+      background: linear-gradient(135deg, #8B2500, #300d00);
+    }
+
+    .p3 {
+      background: linear-gradient(135deg, #1c1c1c, #000);
+    }
+
+    .p4 {
+      background: linear-gradient(135deg, #1a4a6b, #ff8c42);
+    }
+
+    .p5 {
+      background: linear-gradient(135deg, #f5f3ee, #ddd);
+    }
+
+    .p6 {
+      background: linear-gradient(135deg, #e84f2a, #1a1a6e);
+    }
+
+    .p7 {
+      background: linear-gradient(135deg, #ff6b35, #1a3a6e);
+    }
+
+    .p8 {
+      background: linear-gradient(135deg, #ff8fb1, #1a3a6e);
+    }
+
+    .product-img-inner span {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: rgba(255, 255, 255, .25);
+      text-align: center;
+      padding: 20px;
+      line-height: 1.3;
+    }
+
+    .product-card:hover .product-img-inner {
+      transform: scale(1.04);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      font-weight: 600;
+    }
+
+    .product-info {
+      padding: 0 4px;
+    }
+
+    .product-type {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .product-name {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .product-price {
+      font-size: 13px;
+      color: var(--black);
+    }
+
+    .product-action {
+      margin-top: 10px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--black);
+      transition: color .2s;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: var(--font-body);
+    }
+
+    .product-action:hover {
+      color: var(--accent);
+    }
+
+    .product-action.outofstock {
+      color: var(--muted);
+      cursor: default;
+    }
+
+    /* ── FEATURE BANNER ── */
+    .feature-banner {
+      margin: 20px 40px;
+      background: var(--black);
+      padding: 80px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-banner::before {
+      content: 'POP RIOT';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: 200px;
+      color: rgba(255, 255, 255, .025);
+      letter-spacing: 10px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .feature-banner-img {
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, #1a0a05, #3d1a09, #1a0805);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-banner-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .feature-banner-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(-45deg,
+          transparent,
+          transparent 40px,
+          rgba(232, 79, 42, .04) 40px,
+          rgba(232, 79, 42, .04) 41px);
+    }
+
+    .feature-banner-img span {
+      font-family: var(--font-display);
+      font-size: 64px;
+      color: rgba(255, 255, 255, .08);
+      letter-spacing: 6px;
+    }
+
+    .feature-banner-content {
+      color: var(--white);
+    }
+
+    .feature-banner-tag {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .feature-banner-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: .95;
+      margin-bottom: 24px;
+      color: var(--white);
+    }
+
+    .feature-banner-desc {
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(245, 243, 238, .55);
+      margin-bottom: 36px;
+      max-width: 380px;
+    }
+
+    /* ── MORE FROM POP RIOT ── */
+    .more-section {
+      padding: 80px 0;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      padding: 0 40px;
+    }
+
+    /* ── SWEATSHIRT FEATURE ── */
+    .sweat-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin: 2px 0;
+    }
+
+    .sweat-feature-img {
+      aspect-ratio: 1/1;
+      background: linear-gradient(135deg, #1a1a1a, #2d2010);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .sweat-feature-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .sweat-feature-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(200, 169, 110, .12), transparent 60%);
+    }
+
+    .sweat-feature-img span {
+      font-family: var(--font-display);
+      font-size: 80px;
+      color: rgba(255, 255, 255, .06);
+      letter-spacing: 6px;
+    }
+
+    .sweat-feature-content {
+      background: var(--cream);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px;
+    }
+
+    .sweat-feature-content .section-link {
+      align-self: flex-start;
+      margin-top: 30px;
+    }
+
+    /* ── CAPS FEATURE ── */
+    .caps-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin: 2px 0;
+    }
+
+    .caps-left {
+      background: #1c1c1c;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 60px;
+      text-align: center;
+      gap: 30px;
+    }
+
+    .caps-left h2 {
+      font-family: var(--font-display);
+      font-size: 56px;
+      color: var(--white);
+      letter-spacing: 4px;
+    }
+
+    .caps-right {
+      aspect-ratio: 1/1;
+      background: linear-gradient(135deg, #2a1a08, #1a0d04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .caps-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .caps-right::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 60%, rgba(232, 79, 42, .15), transparent 60%);
+    }
+
+    .caps-right span {
+      font-family: var(--font-display);
+      font-size: 100px;
+      color: rgba(255, 255, 255, .05);
+      letter-spacing: 6px;
+    }
+
+    /* ── CATEGORY TABS ── */
+    .categories-section {
+      padding: 80px 40px;
+    }
+
+    .categories-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 56px);
+      margin-bottom: 40px;
+    }
+
+    .cat-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      margin-bottom: 48px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .cat-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-tab {
+      padding: 14px 28px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: var(--font-body);
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+      white-space: nowrap;
+      position: relative;
+      bottom: -1px;
+    }
+
+    .cat-tab.active,
+    .cat-tab:hover {
+      color: var(--black);
+      border-bottom-color: var(--black);
+    }
+
+    .cat-products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    /* ── STORE MAP ── */
+    .store-section {
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .store-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 52px);
+      margin-bottom: 20px;
+    }
+
+    .store-section p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 30px;
+    }
+
+    .map-placeholder {
+      aspect-ratio: 4/3;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .map-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .04) 0, rgba(0, 0, 0, .04) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, .04) 0, rgba(0, 0, 0, .04) 1px, transparent 1px, transparent 40px);
+    }
+
+    .map-pin {
+      width: 20px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      position: relative;
+    }
+
+    .map-pin::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--white);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: var(--black);
+      padding: 80px 40px;
+      text-align: center;
+      color: var(--white);
+    }
+
+    .newsletter-logo {
+      font-family: var(--font-display);
+      font-size: 32px;
+      letter-spacing: 8px;
+      margin-bottom: 24px;
+      display: block;
+      color: var(--white);
+    }
+
+    .newsletter h3 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .newsletter p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .45);
+      margin-bottom: 36px;
+      letter-spacing: 1px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 20px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      border: 1px solid rgba(255, 255, 255, .15);
+      background: rgba(255, 255, 255, .05);
+      color: var(--white);
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .newsletter-form input::placeholder {
+      color: rgba(255, 255, 255, .3);
+    }
+
+    .newsletter-form input:focus {
+      border-color: rgba(255, 255, 255, .4);
+    }
+
+    .newsletter-form button {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      white-space: nowrap;
+    }
+
+    .newsletter-form button:hover {
+      background: #c93e1e;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255, 255, 255, .07);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      color: rgba(255, 255, 255, .4);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, .4);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 1px;
+      transition: color .2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--white);
+    }
+
+    /* ── CART DRAWER ── */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .5);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 380px;
+      max-width: 100vw;
+      height: 100%;
+      background: var(--white);
+      z-index: 201;
+      transform: translateX(100%);
+      transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 28px;
+      border-bottom: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    .cart-header h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 3px;
+    }
+
+    .cart-close {
+      font-size: 22px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      color: var(--black);
+    }
+
+    .cart-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .cart-body svg {
+      opacity: .2;
+    }
+
+    .cart-footer {
+      padding: 24px 28px;
+      border-top: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      padding: 16px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+    }
+
+    .checkout-btn:hover {
+      background: var(--accent);
+    }
+
+    /* ── MOBILE NAV ── */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--black);
+      transition: transform .3s;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      nav {
+        padding: 16px 20px;
+      }
+
+      .hero-content {
+        padding: 0 24px 60px;
+      }
+
+      .hero-shape {
+        display: none;
+      }
+
+      .section-header {
+        padding: 0 20px;
+      }
+
+      .products-scroll {
+        padding: 0 20px;
+      }
+
+      .products-scroll .product-card {
+        flex: 0 0 220px;
+      }
+
+      .feature-banner {
+        grid-template-columns: 1fr;
+        padding: 50px 28px;
+        margin: 20px;
+      }
+
+      .feature-banner-img {
+        display: none;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 20px;
+      }
+
+      .sweat-feature,
+      .caps-feature {
+        grid-template-columns: 1fr;
+      }
+
+      .sweat-feature-img,
+      .caps-right {
+        aspect-ratio: 16/9;
+      }
+
+      .sweat-feature-content {
+        padding: 50px 28px;
+      }
+
+      .caps-left {
+        padding: 50px 28px;
+      }
+
+      .cat-products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .categories-section {
+        padding: 60px 20px;
+      }
+
+      .store-section {
+        grid-template-columns: 1fr;
+        padding: 60px 20px;
+      }
+
+      footer {
+        padding: 30px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Announcement Bar -->
+  <div class="announcement">
+    <span>DROP II — POP RIOT NOW LIVE &nbsp;•&nbsp; FREE SHIPPING ON ORDERS ABOVE ₦50,000 &nbsp;•&nbsp; NEW COLLECTION
+      AVAILABLE NOW &nbsp;•&nbsp; DROP II — POP RIOT NOW LIVE &nbsp;•&nbsp; FREE SHIPPING ON ORDERS ABOVE ₦50,000</span>
+  </div>
+
+  <!-- Navbar -->
+  <nav>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#" class="nav-logo">AYO COLLECTION</a>
+    <ul class="nav-links">
+      <li><a href="#">All Products</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">T-Shirts</a></li>
+      <li><a href="#">Polo</a></li>
+      <li><a href="#">Tank Tees</a></li>
+      <li><a href="#">Accessories</a></li>
+      <li><a href="#">Brand Story</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="#">Account</a>
+      <a href="#" class="cart-btn" onclick="openCart(event)">Cart (0)</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-noise"></div>
+    <div class="hero-shape">
+      <img src="image_1.png" alt="Hero">
+      <span class="hero-shape-label">YLC</span>
+    </div>
+    <div class="hero-content">
+      <span class="hero-tag">Drop II · Pop Riot Collection</span>
+      <h1 class="hero-title">POP<br><span class="accent">RIOT</span></h1>
+      <p class="hero-sub">Chaos, Color & Culture. This collection is for the bold, the expressive — the ones who turn
+        everyday moments into loud statements.</p>
+      <div class="hero-btns">
+        <a href="#new-arrivals" class="btn-primary">Discover</a>
+        <a href="#categories" class="btn-outline">View All</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Arrivals -->
+  <section class="new-arrivals reveal" id="new-arrivals">
+    <div class="section-header">
+      <h2 class="section-title">New Arrivals</h2>
+      <a href="#" class="section-link">View All</a>
+    </div>
+    <div class="products-scroll">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_2.png" alt="Neon Track Short">
+          <div class="product-badge">New</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">Tracksuit</p>
+          <p class="product-name">Neon Track Short</p>
+          <p class="product-price">₦187,500.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_3.png" alt="Inferno Blaze Cap">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Cap</p>
+          <p class="product-name">Inferno Blaze Cap Red/Black</p>
+          <p class="product-price">₦208,500.00</p>
+          <button class="product-action outofstock">Out of Stock</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_4.png" alt="Voltage Beanie">
+          <div class="product-badge">New</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">Beanie</p>
+          <p class="product-name">Voltage Beanie Black</p>
+          <p class="product-price">₦135,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_5.png" alt="Inferno Blaze Cap">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Cap</p>
+          <p class="product-name">Inferno Blaze Cap Blue/Apricot</p>
+          <p class="product-price">₦208,500.00</p>
+          <button class="product-action outofstock">Out of Stock</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_6.png" alt="Voltage Beanie">
+          <div class="product-badge">New</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">Beanie</p>
+          <p class="product-name">Voltage Beanie White</p>
+          <p class="product-price">₦135,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_7.png" alt="Inferno Blaze Cap">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Cap</p>
+          <p class="product-name">Inferno Blaze Cap Orange/Blue</p>
+          <p class="product-price">₦208,500.00</p>
+          <button class="product-action outofstock">Out of Stock</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_8.png" alt="Neon Track Jacket">
+          <div class="product-badge">New</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">Tracksuit</p>
+          <p class="product-name">Neon Track Jacket</p>
+          <p class="product-price">₦187,500.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_9.png" alt="Voltage Beanie">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Beanie</p>
+          <p class="product-name">Voltage Beanie Orange</p>
+          <p class="product-price">₦135,000.00</p>
+          <button class="product-action outofstock">Out of Stock</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Banner -->
+  <div class="feature-banner reveal">
+    <div class="feature-banner-img">
+      <img src="image_10.png" alt="Pop Riot Collection">
+    </div>
+    <div class="feature-banner-content">
+      <span class="feature-banner-tag">Drop II · Pop Riot</span>
+      <h2 class="feature-banner-title">MORE FROM<br>POP RIOT</h2>
+      <p class="feature-banner-desc">This collection is for the bold, the expressive, the ones who turn everyday moments
+        into statements. It's for those who understand that fashion isn't just about what you wear — it's about how
+        loudly you exist in it.</p>
+      <a href="#" class="btn-primary">Discover</a>
+    </div>
+  </div>
+
+  <!-- More From Pop Riot -->
+  <section class="more-section reveal">
+    <div class="section-header">
+      <h2 class="section-title">More from Pop Riot</h2>
+      <a href="#" class="section-link">View All</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_2.png" alt="Petal Varsity Jacket">
+          <div class="product-badge">New</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">Jackets</p>
+          <p class="product-name">Petal Varsity Jacket Red</p>
+          <p class="product-price">₦750,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_3.png" alt="Emblem Sweatshirt">
+          <div class="product-badge">New</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">Sweatshirt</p>
+          <p class="product-name">Emblem Sweatshirt Yellow/Blue</p>
+          <p class="product-price">₦300,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_4.png" alt="Strike Cap">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Cap</p>
+          <p class="product-name">Strike Cap Red/Blue</p>
+          <p class="product-price">₦208,500.00</p>
+          <button class="product-action outofstock">Out of Stock</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_5.png" alt="Strike Cap">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Cap</p>
+          <p class="product-name">Strike Cap Pink/Blue</p>
+          <p class="product-price">₦208,500.00</p>
+          <button class="product-action outofstock">Out of Stock</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emblem Sweatshirt Feature -->
+  <div class="sweat-feature reveal">
+    <div class="sweat-feature-img">
+      <img src="image_11.png" alt="Emblem Sweatshirt">
+    </div>
+    <div class="sweat-feature-content">
+      <span
+        style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:block">Collection</span>
+      <h2 style="font-family:var(--font-display);font-size:clamp(40px,5vw,64px);margin-bottom:20px;line-height:.95">
+        Emblem<br>Sweatshirt</h2>
+      <p style="font-size:14px;line-height:1.8;color:var(--muted);max-width:360px">Bold embroidered emblems on premium
+        cotton. A statement piece for every wardrobe.</p>
+      <a href="#" class="section-link">Discover the Collection</a>
+    </div>
+  </div>
+
+  <!-- Explore Sweatshirts -->
+  <section class="more-section reveal">
+    <div class="section-header">
+      <h2 class="section-title">Explore</h2>
+      <a href="#" class="section-link">View Collection</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_6.png" alt="Emblem Sweatshirt">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Sweatshirt</p>
+          <p class="product-name">Emblem Sweatshirt Black/Beige</p>
+          <p class="product-price">₦300,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_7.png" alt="Emblem Sweatshirt">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Sweatshirt</p>
+          <p class="product-name">Emblem Sweatshirt Yellow/Blue</p>
+          <p class="product-price">₦300,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_8.png" alt="Emblem Sweatshirt">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Sweatshirt</p>
+          <p class="product-name">Emblem Sweatshirt Beige/Black</p>
+          <p class="product-price">₦300,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_9.png" alt="Emblem Sweatshirt">
+        </div>
+        <div class="product-info">
+          <p class="product-type">Sweatshirt</p>
+          <p class="product-name">Emblem Sweatshirt Red & Beige</p>
+          <p class="product-price">₦300,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strike Caps Feature -->
+  <div class="caps-feature reveal">
+    <div class="caps-left">
+      <span
+        style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.4)">Accessories</span>
+      <h2>Strike<br>Caps</h2>
+      <a href="#" class="btn-primary">Shop Now</a>
+    </div>
+    <div class="caps-right">
+      <img src="image_2.png" alt="Strike Caps">
+    </div>
+  </div>
+
+  <!-- Best Sellers -->
+  <section class="more-section reveal">
+    <div class="section-header">
+      <h2 class="section-title">Y&L'25 Best Sellers</h2>
+      <a href="#" class="section-link">View All</a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_3.png" alt="YL Racer Polo">
+          <div class="product-badge">Best Seller</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">Polo</p>
+          <p class="product-name">YL Racer Polo Black</p>
+          <p class="product-price">₦420,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_4.png" alt="YL Racer Polo">
+          <div class="product-badge">Best Seller</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">Polo</p>
+          <p class="product-name">YL Racer Polo White</p>
+          <p class="product-price">₦420,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_5.png" alt="YL Racer Polo">
+        </div>
+        <div class="product-info">
+          <p class="product-type">T-shirts</p>
+          <p class="product-name">YL Racer Polo Orange</p>
+          <p class="product-price">₦420,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_6.png" alt="YL Racer Polo">
+        </div>
+        <div class="product-info">
+          <p class="product-type">T-shirts</p>
+          <p class="product-name">YL Racer Polo Green</p>
+          <p class="product-price">₦420,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_7.png" alt="Trapped T-Shirt">
+        </div>
+        <div class="product-info">
+          <p class="product-type">T-shirts</p>
+          <p class="product-name">Trapped T-Shirt Green</p>
+          <p class="product-price">₦300,000.00</p>
+          <button class="product-action outofstock">Out of Stock</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">
+          <img src="image_8.png" alt="Aura T-Shirt">
+          <div class="product-badge">Best Seller</div>
+        </div>
+        <div class="product-info">
+          <p class="product-type">T-shirts</p>
+          <p class="product-name">Aura T-Shirt Orange</p>
+          <p class="product-price">₦300,000.00</p>
+          <button class="product-action">Choose Options</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Tabs -->
+  <section class="categories-section reveal" id="categories">
+    <h2>Young & Limitless '25</h2>
+    <div class="cat-tabs">
+      <button class="cat-tab active" onclick="filterCat(this,'sweatshirt')">Sweatshirt</button>
+      <button class="cat-tab" onclick="filterCat(this,'accessories')">Accessories</button>
+      <button class="cat-tab" onclick="filterCat(this,'polo')">Polo</button>
+      <button class="cat-tab" onclick="filterCat(this,'tank')">Tank Tops</button>
+      <button class="cat-tab" onclick="filterCat(this,'tshirt')">T-Shirt</button>
+    </div>
+    <div class="cat-products" id="cat-grid">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+  <!-- Store Map -->
+  <section class="store-section reveal">
+    <div>
+      <h2>Walk Into Our Store</h2>
+      <p>Experience YL Collectives in person. Our flagship store is where bold fashion meets community culture. Come
+        feel the fabrics, meet the team, and discover pieces you won't find anywhere else.</p>
+      <a href="#" class="btn-primary">Get Directions</a>
+    </div>
+    <div class="map-placeholder">
+      <img src="image_11.png" alt="Store Location">
+      <div class="map-pin"></div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <div class="newsletter reveal">
+    <span class="newsletter-logo">YL</span>
+    <h3>Inspire Me With The Latest YL News</h3>
+    <p>Be the first to know about new drops, exclusive offers, and brand stories.</p>
+    <form class="newsletter-form" onsubmit="return false;">
+      <input type="email" placeholder="Your email address">
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2026 YL Collectives</span>
+    <ul class="footer-links">
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Shipping Policy</a></li>
+      <li><a href="#">Refund Policy</a></li>
+    </ul>
+    <span>NG (₦) · Nigeria</span>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>SHOPPING BAG</h3>
+      <button class="cart-close" onclick="closeCart()">×</button>
+    </div>
+    <div class="cart-body">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <path d="M16 10a4 4 0 01-8 0" />
+      </svg>
+      <p>Your shopping bag is empty</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total"><span>Total</span><span>₦0.00</span></div>
+      <button class="checkout-btn">Check Out</button>
+    </div>
+  </div>
+
+  <script>
+    /* Cart */
+    function openCart(e) { e.preventDefault(); document.getElementById('cartOverlay').classList.add('open'); document.getElementById('cartDrawer').classList.add('open'); }
+    function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.getElementById('cartDrawer').classList.remove('open'); }
+
+    /* Mobile menu */
+    function toggleMobileMenu() {
+      const links = document.querySelector('.nav-links');
+      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+      links.style.flexDirection = 'column';
+      links.style.position = 'absolute';
+      links.style.top = '100%';
+      links.style.left = '0';
+      links.style.right = '0';
+      links.style.background = '#f5f3ee';
+      links.style.padding = '20px 30px';
+      links.style.borderBottom = '1px solid rgba(0,0,0,.08)';
+      links.style.zIndex = '99';
+    }
+
+    /* Category products data */
+    const catData = {
+      sweatshirt: [
+        { name: 'Emblem Sweatshirt Black/Beige', price: '₦300,000', image: 'image_6.png', type: 'Sweatshirt' },
+        { name: 'Emblem Sweatshirt Yellow/Blue', price: '₦300,000', image: 'image_7.png', type: 'Sweatshirt' },
+        { name: 'Emblem Sweatshirt Beige/Black', price: '₦300,000', image: 'image_8.png', type: 'Sweatshirt' },
+      ],
+      accessories: [
+        { name: 'Inferno Blaze Cap Red/Black', price: '₦208,500', image: 'image_3.png', type: 'Cap' },
+        { name: 'Voltage Beanie Black', price: '₦135,000', image: 'image_4.png', type: 'Beanie' },
+        { name: 'Strike Cap Red/Blue', price: '₦208,500', image: 'image_5.png', type: 'Cap' },
+      ],
+      polo: [
+        { name: 'YL Racer Polo Black', price: '₦420,000', image: 'image_3.png', type: 'Polo' },
+        { name: 'YL Racer Polo White', price: '₦420,000', image: 'image_4.png', type: 'Polo' },
+        { name: 'YL Racer Polo Orange', price: '₦420,000', image: 'image_5.png', type: 'Polo' },
+      ],
+      tank: [
+        { name: 'Tank Top Black', price: '₦180,000', image: 'image_6.png', type: 'Tank Top' },
+        { name: 'Tank Top White', price: '₦180,000', image: 'image_7.png', type: 'Tank Top' },
+        { name: 'Tank Top Beige', price: '₦180,000', image: 'image_8.png', type: 'Tank Top' },
+      ],
+      tshirt: [
+        { name: 'Aura T-Shirt Orange', price: '₦300,000', image: 'image_8.png', type: 'T-Shirt' },
+        { name: 'Trapped T-Shirt Green', price: '₦300,000', image: 'image_7.png', type: 'T-Shirt' },
+        { name: 'Aura T-Shirt Black', price: '₦300,000', image: 'image_6.png', type: 'T-Shirt' },
+      ]
+    };
+
+    function filterCat(btn, cat) {
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const grid = document.getElementById('cat-grid');
+      const items = catData[cat];
+      grid.innerHTML = items.map(p => `
+      <div class="product-card">
+        <div class="product-img">
+          <img src="${p.image}" alt="${p.name}">
+        </div>
+        <div class="product-info">
+          <p class="product-type">${p.type}</p>
+          <p class="product-name">${p.name}</p>
+          <p class="product-price">${p.price}.00</p>
+          <button class="product-action">Shop Now</button>
+        </div>
+      </div>
+    `).join('');
+    }
+    filterCat(document.querySelector('.cat-tab'), 'sweatshirt');
+
+    /* Scroll reveal */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+</html>
