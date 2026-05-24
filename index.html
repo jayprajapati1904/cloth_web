@@ -96,6 +96,21 @@
       list-style: none;
     }
 
+    /* Mobile open state: show nav links as a full-width panel */
+    nav.mobile-open .nav-links {
+      display: flex !important;
+      flex-direction: column;
+      gap: 12px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      background: var(--white);
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(0, 0, 0, .06);
+      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.06);
+    }
+
     .nav-links a {
       font-size: 11px;
       letter-spacing: 2px;
@@ -318,29 +333,63 @@
       justify-content: space-between;
       margin-bottom: 36px;
       padding: 0 40px;
+      position: relative;
+      z-index: 1;
+      padding-bottom: 20px;
+    }
+
+    /* Decorative stretched line across the section header */
+    .section-header::after {
+      content: '';
+      position: absolute;
+      left: 40px;
+      right: 40px;
+      height: 4px;
+      bottom: 6px;
+      background: linear-gradient(90deg, rgba(200, 169, 110, 0) 0%, rgba(200, 169, 110, 0.95) 40%, rgba(200, 169, 110, 0.95) 60%, rgba(200, 169, 110, 0) 100%);
+      opacity: 0.16;
+      border-radius: 3px;
+      pointer-events: none;
     }
 
     .section-title {
-      font-family: var(--font-display);
+      font-family: var(--font-serif);
       font-size: clamp(36px, 5vw, 56px);
-      letter-spacing: 2px;
+      /* bolder, tighter headings */
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      z-index: 2;
+      position: relative;
     }
 
     .section-link {
       font-size: 11px;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--black);
       text-decoration: none;
       border-bottom: 1px solid var(--black);
       padding-bottom: 2px;
-      font-weight: 500;
+      font-weight: 600;
       transition: color .2s, border-color .2s;
+      z-index: 2;
+      position: relative;
     }
 
     .section-link:hover {
       color: var(--accent);
       border-color: var(--accent);
+    }
+
+    /* Make other prominent headings use the serif and be bolder */
+    .nav-logo,
+    .hero-title,
+    .feature-banner-title,
+    .sweat-feature-content h2,
+    .caps-left h2 {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      letter-spacing: 0.6px;
     }
 
     /* ── NEW ARRIVALS ── */
@@ -360,6 +409,14 @@
 
     .products-scroll::-webkit-scrollbar {
       display: none;
+    }
+
+    /* Track used by continuous slider (created by JS) */
+    .products-track {
+      display: flex;
+      gap: 2px;
+      align-items: stretch;
+      will-change: transform;
     }
 
     .product-card {
@@ -1099,6 +1156,17 @@
         padding: 16px 20px;
       }
 
+      /* tighten header spacing on small screens */
+      .nav-logo {
+        font-size: 20px;
+        letter-spacing: 1px;
+      }
+
+      .nav-icons {
+        gap: 12px;
+        font-size: 12px;
+      }
+
       .hero-content {
         padding: 0 24px 60px;
       }
@@ -1595,7 +1663,7 @@
       <a href="#" class="btn-primary">Get Directions</a>
     </div>
     <div class="map-placeholder">
-      <img src="./images/image_11.png" alt="Store Location">
+      <!-- <img src="./images/image_11.png" alt="Store Location"> -->
       <div class="map-pin"></div>
     </div>
   </section>
@@ -1651,18 +1719,17 @@
 
     /* Mobile menu */
     function toggleMobileMenu() {
-      const links = document.querySelector('.nav-links');
-      links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-      links.style.flexDirection = 'column';
-      links.style.position = 'absolute';
-      links.style.top = '100%';
-      links.style.left = '0';
-      links.style.right = '0';
-      links.style.background = '#f5f3ee';
-      links.style.padding = '20px 30px';
-      links.style.borderBottom = '1px solid rgba(0,0,0,.08)';
-      links.style.zIndex = '99';
+      document.querySelector('nav').classList.toggle('mobile-open');
     }
+
+    // Close mobile menu when clicking outside or when resizing above breakpoint
+    document.addEventListener('click', (e) => {
+      const nav = document.querySelector('nav');
+      if (!nav.contains(e.target)) nav.classList.remove('mobile-open');
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) document.querySelector('nav').classList.remove('mobile-open');
+    });
 
     /* Category products data */
     const catData = {
@@ -1719,6 +1786,81 @@
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    /* Continuous auto-slider for horizontal product scrollers (.products-scroll) */
+    (function initContinuousSliders() {
+      const sliders = document.querySelectorAll('.products-scroll');
+      sliders.forEach(slider => {
+        // Align scroller with page content
+        slider.style.maxWidth = '1250px';
+        slider.style.margin = '0 auto';
+        slider.style.padding = '0 40px';
+        slider.style.position = 'relative';
+        slider.style.overflow = 'hidden';
+
+        // Build a track and move existing items into it
+        const track = document.createElement('div');
+        track.className = 'products-track';
+        while (slider.firstChild) track.appendChild(slider.firstChild);
+        slider.appendChild(track);
+
+        const originalItems = Array.from(track.children);
+        if (!originalItems.length) return;
+
+        // Wait for images to load to measure widths accurately
+        const imgs = track.querySelectorAll('img');
+        let remaining = imgs.length;
+        function trySetup() {
+          // compute gap
+          const gap = parseFloat(getComputedStyle(track).gap) || 2;
+          let originalWidth = originalItems.reduce((w, el) => w + el.getBoundingClientRect().width + gap, 0);
+
+          // Clone items until there's enough content to loop smoothly
+          let appendedWidth = 0;
+          let idx = 0;
+          while (appendedWidth < originalWidth) {
+            const clone = originalItems[idx % originalItems.length].cloneNode(true);
+            track.appendChild(clone);
+            appendedWidth += clone.getBoundingClientRect().width + gap;
+            idx++;
+            if (idx > originalItems.length * 10) break; // safety
+          }
+
+          let offset = 0;
+          const speed = 0.5; // px per frame, tweakable
+          let paused = false;
+
+          function step() {
+            if (!paused) {
+              offset += speed;
+              if (offset >= originalWidth) offset -= originalWidth;
+              track.style.transform = `translateX(${-offset}px)`;
+            }
+            requestAnimationFrame(step);
+          }
+
+          slider.addEventListener('mouseenter', () => paused = true);
+          slider.addEventListener('mouseleave', () => paused = false);
+          slider.addEventListener('pointerdown', () => paused = true);
+          slider.addEventListener('pointerup', () => paused = false);
+
+          // kick off
+          requestAnimationFrame(step);
+        }
+
+        if (remaining === 0) trySetup();
+        else {
+          imgs.forEach(img => {
+            if (img.complete) { remaining--; }
+            else {
+              img.addEventListener('load', () => { remaining--; if (remaining === 0) trySetup(); });
+              img.addEventListener('error', () => { remaining--; if (remaining === 0) trySetup(); });
+            }
+          });
+          if (remaining === 0) trySetup();
+        }
+      });
+    })();
   </script>
 </body>
 
